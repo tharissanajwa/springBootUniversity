@@ -1,21 +1,21 @@
-package com.bootcamp.springBootUniversity.models;
+package com.bootcamp.springbootuniversity.models;
 
 public class Student {
 
-    private short studentId;
+    private long studentId;
     private String studentName;
-    private short majorId;
+    private long majorId;
     private String majorName;
     private boolean studentStatus;
 
-    public Student(short studentId, String studentName, short majorId, boolean studentStatus) {
+    public Student(long studentId, String studentName, long majorId, boolean studentStatus) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.majorId = majorId;
         this.studentStatus = studentStatus;
     }
 
-    public short getStudentId() {
+    public long getStudentId() {
         return studentId;
     }
 
@@ -27,11 +27,11 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public short getMajorId() {
+    public long getMajorId() {
         return majorId;
     }
 
-    public void setMajorId(short majorId) {
+    public void setMajorId(long majorId) {
         this.majorId = majorId;
     }
 

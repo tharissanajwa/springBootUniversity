@@ -1,8 +1,8 @@
-package com.bootcamp.springBootUniversity.services;
+package com.bootcamp.springbootuniversity.services;
 
-import com.bootcamp.springBootUniversity.models.Major;
-import com.bootcamp.springBootUniversity.models.Student;
-import com.bootcamp.springBootUniversity.utilities.Utility;
+import com.bootcamp.springbootuniversity.models.Major;
+import com.bootcamp.springbootuniversity.models.Student;
+import com.bootcamp.springbootuniversity.utilities.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class StudentService {
     @Autowired
     private Utility utility;
 
-    private List<Student> students = new ArrayList<>();
+    private static final List<Student> students = new ArrayList<>();
 
     public List<Student> getStudents() {
         return students;
@@ -30,38 +30,26 @@ public class StudentService {
         return responseMessage;
     }
 
-    public List<Student> addStudent(List<Student> students, String name, short majorId) {
-        short studentId = (short) (students.size() + 1);
-        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
+    public Student addStudent(List<Student> students, String name, long majorId) {
+        Student result = null;
+        long studentId = students.size() + 1;
+        int inputCheck = utility.inputCheck(utility.inputTrim(name));
 
         if (inputCheck == 1) {
-            responseMessage = "Sorry, student name cannot be null.";
+            responseMessage = "Sorry, student name cannot be blank.";
         } else if (inputCheck == 2) {
-            responseMessage = "Sorry, student name cannot be empty";
-        } else if (inputCheck == 3) {
             responseMessage = "Sorry, student name can only filled by letters";
         } else {
             if (majorService.majorExists(majorId)) {
                 students.add(new Student(studentId, utility.inputTrim(name), majorId, true));
+                result = getStudents().get((int) (studentId-1));
                 responseMessage = "Data successfully added!";
             } else {
                 responseMessage = "Sorry, id major doesn't already exists.";
             }
         }
-        return students;
+        return result;
     }
-
-    public boolean studentExists(short studentId) {
-        boolean studentExists = false;
-        for (Student student: getStudents()) {
-            if (studentId == student.getStudentId() && student.getStudentStatus()) {
-                studentExists = true;
-                break;
-            }
-        }
-        return studentExists;
-    }
-
 
     public List<Student> getAllStudent() {
         List<Student> result = new ArrayList<>();
@@ -83,7 +71,7 @@ public class StudentService {
         return result;
     }
 
-    private String getMajorName(short majorId) {
+    private String getMajorName(long majorId) {
         String nameMajor = "";
         for (Major major : majorService.getMajors()) {
             if (majorId == major.getMajorId()) {
@@ -93,25 +81,22 @@ public class StudentService {
         return nameMajor;
     }
 
-    public List<Student> updateStudent(short studentId, String name, short majorId) {
-        List<Student> result = new ArrayList<>();
-        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
+    public Student updateStudent(long studentId, String name, long majorId) {
+        Student result = null;
+        int inputCheck = utility.inputCheck(utility.inputTrim(name));
 
         if (inputCheck == 1) {
-            responseMessage = "Sorry, student name cannot be null.";
+            responseMessage = "Sorry, student name cannot be blank.";
         } else if (inputCheck == 2) {
-            responseMessage = "Sorry, student name cannot be empty";
-        } else if (inputCheck == 3) {
             responseMessage = "Sorry, student name can only filled by letters";
         } else {
-            if (studentExists(studentId) && getStudents().get(studentId-1).getStudentStatus()) {
+            if (studentExists(studentId) && getStudents().get((int) (studentId-1)).getStudentStatus()) {
                 if (majorService.majorExists(majorId)) {
-                    getStudents().get(studentId - 1).setStudentName(utility.inputTrim(name));
-                    getStudents().get(studentId - 1).setMajorId(majorId);
+                    getStudents().get((int) (studentId - 1)).setStudentName(utility.inputTrim(name));
+                    getStudents().get((int) (studentId - 1)).setMajorId(majorId);
                     String majorName = getMajorName(majorId);
-                    getStudents().get(studentId - 1).setMajorName(majorName);
-                    Student student = getStudents().get(studentId - 1);
-                    result.add(student);
+                    getStudents().get((int) (studentId - 1)).setMajorName(majorName);
+                    result = getStudents().get((int) (studentId - 1));
                     responseMessage = "Data successfully updated!";
                 } else {
                     responseMessage = "Sorry, id major doesn't already exists.";
@@ -123,17 +108,27 @@ public class StudentService {
         return result;
     }
 
-    public List<Student> disableStudent(short studentId) {
-        List<Student> result = new ArrayList<>();
-
-        if (studentExists(studentId) && getStudents().get(studentId-1).getStudentStatus()) {
-            getStudents().get(studentId-1).setStudentStatus(false);
-            Student student = getStudents().get(studentId-1);
-            result.add(student);
+    public boolean disableStudent(long studentId) {
+        boolean result = false;
+        if (studentExists(studentId) && getStudents().get((int) (studentId-1)).getStudentStatus()) {
+            getStudents().get((int) (studentId-1)).setStudentStatus(false);
+            result = true;
             responseMessage = "Data deactivated successfully!";
         } else {
             responseMessage = "Sorry, id student is not found.";
         }
         return result;
+    }
+
+    public boolean studentExists(long studentId) {
+        boolean studentExists = false;
+        int number = 0;
+        while (!studentExists && number < getStudents().size()) {
+            if (getStudents().get(number).getStudentStatus() && getStudents().get(number).getStudentId() == studentId) {
+                studentExists = true;
+            }
+            number++;
+        }
+        return studentExists;
     }
 }

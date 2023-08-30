@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"courseName\": \"    Basis    Data   \"\n}",
+							"raw": "{\n    \"courseName\": \"    Basis Data    \"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -217,13 +217,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/student-course",
+							"raw": "localhost:8080/student-courses",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"student-course"
+								"student-courses"
 							]
 						}
 					},
@@ -244,13 +244,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/student-course",
+							"raw": "localhost:8080/student-courses",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"student-course"
+								"student-courses"
 							]
 						}
 					},
@@ -263,7 +263,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"studentId\": 1,\n    \"courseId\": 1,\n    \"quiz1\": 90,\n    \"quiz2\": 100,\n    \"quiz3\": -1,\n    \"exam1\": 80,\n    \"exam2\": -1\n}",
+							"raw": "{\n    \"quiz1\": 90,\n    \"quiz2\": 100,\n    \"quiz3\": null,\n    \"exam1\": 80,\n    \"exam2\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,13 +271,42 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/student-course/1",
+							"raw": "localhost:8080/student-courses/1/grade",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"student-course",
+								"student-courses",
+								"1",
+								"grade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student Course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentId\": 2,\n    \"courseId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/student-courses/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student-courses",
 								"1"
 							]
 						}

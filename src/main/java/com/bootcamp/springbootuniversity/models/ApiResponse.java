@@ -1,4 +1,4 @@
-package com.bootcamp.springBootUniversity.models;
+package com.bootcamp.springbootuniversity.models;
 
 public class ApiResponse {
 

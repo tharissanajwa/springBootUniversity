@@ -1,4 +1,4 @@
-package com.bootcamp.springBootUniversity.utilities;
+package com.bootcamp.springbootuniversity.utilities;
 
 import org.springframework.stereotype.Service;
 
@@ -15,22 +15,22 @@ public class Utility {
         return inputTrim;
     }
 
-    public byte inputCheck(String input) {
-        byte valid = 0;
-        if (input == null) {
+    public int inputCheck(String input) {
+        int valid = 0;
+        if (input == null || input.isEmpty()) {
             valid = 1;
-        } else if (input.isEmpty()) {
-            valid = 2;
         } else if (!input.matches("^[a-zA-Z\\s]+$")) {
-            valid = 3;
+            valid = 2;
         }
         return valid;
     }
 
-    public byte gradeCheck(byte grade) {
-        byte valid = 0;
-        if (grade < -1 || grade > 100) {
-            valid = 1;
+    public int gradeCheck(Integer grade) {
+        int valid = 0;
+        if (grade != null) {
+            if (grade < 0 || grade > 100) {
+                valid = 1;
+            }
         }
         return valid;
     }

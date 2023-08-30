@@ -1,18 +1,18 @@
-package com.bootcamp.springBootUniversity.models;
+package com.bootcamp.springbootuniversity.models;
 
 public class Course {
 
-    private short courseId;
+    private long courseId;
     private String courseName;
     private boolean courseStatus;
 
-    public Course(short courseId, String courseName, boolean courseStatus) {
+    public Course(long courseId, String courseName, boolean courseStatus) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseStatus = courseStatus;
     }
 
-    public short getCourseId() {
+    public long getCourseId() {
         return courseId;
     }
 

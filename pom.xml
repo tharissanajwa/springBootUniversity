@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bootcamp</groupId>
-	<artifactId>springBootUniversity</artifactId>
+	<artifactId>springbootuniversity</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springBootUniversity</name>
 	<description>Createad a project spring boot about management university</description>

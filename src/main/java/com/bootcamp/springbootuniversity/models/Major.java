@@ -1,16 +1,16 @@
-package com.bootcamp.springBootUniversity.models;
+package com.bootcamp.springbootuniversity.models;
 
 public class Major {
 
-    private short majorId;
+    private long majorId;
     private String nameMajor;
 
-    public Major(short majorId, String nameMajor) {
+    public Major(long majorId, String nameMajor) {
         this.majorId = majorId;
         this.nameMajor = nameMajor;
     }
 
-    public short getMajorId() {
+    public long getMajorId() {
         return majorId;
     }
 
