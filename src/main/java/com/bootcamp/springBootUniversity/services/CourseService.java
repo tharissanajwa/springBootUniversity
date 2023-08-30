@@ -27,13 +27,13 @@ public class CourseService {
 
     public List<Course> addCourse(List<Course> courses, String name) {
         short courseId = (short) (courses.size() + 1);
-        short cekInput = utility.cekInput(utility.inputTrim(name));
+        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
 
-        if (cekInput == 1) {
+        if (inputCheck == 1) {
             responseMessage = "Sorry, course name cannot be null.";
-        } else if (cekInput == 2) {
+        } else if (inputCheck == 2) {
             responseMessage = "Sorry, course name cannot be empty";
-        } else if (cekInput == 3) {
+        } else if (inputCheck == 3) {
             responseMessage = "Sorry, course name can only filled by letters";
         } else {
             courses.add(new Course(courseId, utility.inputTrim(name), true));
@@ -45,7 +45,7 @@ public class CourseService {
     public boolean courseExists(short courseId) {
         boolean courseExists = false;
         for (Course course: getCourses()) {
-            if (courseId == course.getCourseId()) {
+            if (courseId == course.getCourseId() && course.getCourseStatus()) {
                 courseExists = true;
                 break;
             }
@@ -73,13 +73,13 @@ public class CourseService {
 
     public List<Course> updateCourse(short courseId, String name) {
         List<Course> result = new ArrayList<>();
-        short cekInput = utility.cekInput(utility.inputTrim(name));
+        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
 
-        if (cekInput == 1) {
+        if (inputCheck == 1) {
             responseMessage = "Sorry, course name cannot be null.";
-        } else if (cekInput == 2) {
+        } else if (inputCheck == 2) {
             responseMessage = "Sorry, course name cannot be empty";
-        } else if (cekInput == 3) {
+        } else if (inputCheck == 3) {
             responseMessage = "Sorry, course name can only filled by letters";
         } else {
             if (courseExists(courseId) && getCourses().get(courseId-1).getCourseStatus()) {

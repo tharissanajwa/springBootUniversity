@@ -33,7 +33,7 @@ public class StudentChooseCourseController {
 
     @PutMapping("/{studentCourseId}")
     private ResponseEntity<ApiResponse> inputStudentGrades(@PathVariable("studentCourseId") short studentCourseId, @RequestBody StudentChooseCourse studentCourse) {
-        List<StudentChooseCourse> studentChooseCourse = studentCourseService.inputStudentGrades(studentCourseId, studentCourse.getQuiz1(), studentCourse.getQuiz2(), studentCourse.getQuiz3(), studentCourse.getExam1(), studentCourse.getExam2());
+        List<StudentChooseCourse> studentChooseCourse = studentCourseService.inputStudentGrades(studentCourseId, studentCourse.getStudentId(), studentCourse.getCourseId(), studentCourse.getQuiz1(), studentCourse.getQuiz2(), studentCourse.getQuiz3(), studentCourse.getExam1(), studentCourse.getExam2());
         ApiResponse response = new ApiResponse(studentCourseService.getResponseMessage(), studentChooseCourse);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

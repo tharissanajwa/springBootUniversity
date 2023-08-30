@@ -27,13 +27,13 @@ public class MajorService {
 
     public List<Major> addMajor (List<Major> majors, String name) {
         short majorId = (short) (majors.size() + 1);
-        short cekInput = utility.cekInput(utility.inputTrim(name));
+        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
 
-        if (cekInput == 1) {
+        if (inputCheck == 1) {
             responseMessage = "Sorry, major name cannot be null.";
-        } else if (cekInput == 2) {
+        } else if (inputCheck == 2) {
             responseMessage = "Sorry, major name cannot be empty";
-        } else if (cekInput == 3) {
+        } else if (inputCheck == 3) {
             responseMessage = "Sorry, major name can only filled by letters";
         } else {
             majors.add(new Major(majorId, utility.inputTrim(name)));
@@ -68,13 +68,13 @@ public class MajorService {
 
     public List<Major> updateMajor(short majorId, String name) {
         List<Major> result = new ArrayList<>();
-        short cekInput = utility.cekInput(utility.inputTrim(name));
+        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
 
-        if (cekInput == 1) {
+        if (inputCheck == 1) {
             responseMessage = "Sorry, major name cannot be null.";
-        } else if (cekInput == 2) {
+        } else if (inputCheck == 2) {
             responseMessage = "Sorry, major name cannot be empty";
-        } else if (cekInput == 3) {
+        } else if (inputCheck == 3) {
             responseMessage = "Sorry, major name can only filled by letters";
         } else {
             if (majorExists(majorId)) {

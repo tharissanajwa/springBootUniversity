@@ -32,13 +32,13 @@ public class StudentService {
 
     public List<Student> addStudent(List<Student> students, String name, short majorId) {
         short studentId = (short) (students.size() + 1);
-        short cekInput = utility.cekInput(utility.inputTrim(name));
+        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
 
-        if (cekInput == 1) {
+        if (inputCheck == 1) {
             responseMessage = "Sorry, student name cannot be null.";
-        } else if (cekInput == 2) {
+        } else if (inputCheck == 2) {
             responseMessage = "Sorry, student name cannot be empty";
-        } else if (cekInput == 3) {
+        } else if (inputCheck == 3) {
             responseMessage = "Sorry, student name can only filled by letters";
         } else {
             if (majorService.majorExists(majorId)) {
@@ -54,7 +54,7 @@ public class StudentService {
     public boolean studentExists(short studentId) {
         boolean studentExists = false;
         for (Student student: getStudents()) {
-            if (studentId == student.getStudentId()) {
+            if (studentId == student.getStudentId() && student.getStudentStatus()) {
                 studentExists = true;
                 break;
             }
@@ -95,13 +95,13 @@ public class StudentService {
 
     public List<Student> updateStudent(short studentId, String name, short majorId) {
         List<Student> result = new ArrayList<>();
-        short cekInput = utility.cekInput(utility.inputTrim(name));
+        byte inputCheck = utility.inputCheck(utility.inputTrim(name));
 
-        if (cekInput == 1) {
+        if (inputCheck == 1) {
             responseMessage = "Sorry, student name cannot be null.";
-        } else if (cekInput == 2) {
+        } else if (inputCheck == 2) {
             responseMessage = "Sorry, student name cannot be empty";
-        } else if (cekInput == 3) {
+        } else if (inputCheck == 3) {
             responseMessage = "Sorry, student name can only filled by letters";
         } else {
             if (studentExists(studentId) && getStudents().get(studentId-1).getStudentStatus()) {
@@ -113,6 +113,8 @@ public class StudentService {
                     Student student = getStudents().get(studentId - 1);
                     result.add(student);
                     responseMessage = "Data successfully updated!";
+                } else {
+                    responseMessage = "Sorry, id major doesn't already exists.";
                 }
             } else {
                 responseMessage = "Sorry, id student is not found.";

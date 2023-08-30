@@ -1,6 +1,7 @@
 package com.bootcamp.springBootUniversity.services;
 
 import com.bootcamp.springBootUniversity.models.StudentChooseCourse;
+import com.bootcamp.springBootUniversity.utilities.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class StudentChooseCourseService {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private Utility utility;
 
     private List<StudentChooseCourse> studentCourse = new ArrayList<>();
 
@@ -70,9 +74,19 @@ public class StudentChooseCourseService {
         return result;
     }
 
-    public List<StudentChooseCourse> inputStudentGrades(short studentCourseId, byte quiz1, byte quiz2, byte quiz3, byte exam1, byte exam2) {
+    public List<StudentChooseCourse> inputStudentGrades(short studentCourseId, short studentId, short courseId, byte quiz1, byte quiz2, byte quiz3, byte exam1, byte exam2) {
         List<StudentChooseCourse> result = new ArrayList<>();
-        if (studentCourseExists(studentCourseId)) {
+        if (!studentCourseExists(studentCourseId)) {
+            responseMessage = "Sorry, id student course not found.";
+        } else if (utility.gradeCheck(quiz1) == 1 || utility.gradeCheck(quiz2) == 1 || utility.gradeCheck(quiz3) == 1 || utility.gradeCheck(exam1) == 1 || utility.gradeCheck(exam2) == 1) {
+            responseMessage = "Sorry, the grades should be between 0-100";
+        } else if (!studentService.studentExists(studentId)) {
+            responseMessage = "Sorry, id student doesn't already exists.";
+        } else if (!courseService.courseExists(courseId)) {
+            responseMessage = "Sorry, id course doesn't already exists.";
+        } else {
+            getStudentCourse().get(studentCourseId-1).setStudentId(studentId);
+            getStudentCourse().get(studentCourseId-1).setCourseId(courseId);
             getStudentCourse().get(studentCourseId-1).setQuiz1(quiz1);
             getStudentCourse().get(studentCourseId-1).setQuiz2(quiz2);
             getStudentCourse().get(studentCourseId-1).setQuiz3(quiz3);
@@ -81,8 +95,6 @@ public class StudentChooseCourseService {
             StudentChooseCourse studentCourse = getStudentCourse().get(studentCourseId-1);
             result.add(studentCourse);
             responseMessage = "Grade entered successfully!";
-        } else {
-            responseMessage = "Sorry, id student course not found.";
         }
         return result;
     }

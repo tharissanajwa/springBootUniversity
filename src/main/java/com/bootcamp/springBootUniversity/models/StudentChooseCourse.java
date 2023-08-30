@@ -24,8 +24,16 @@ public class StudentChooseCourse {
         return studentId;
     }
 
+    public void setStudentId(short studentId) {
+        this.studentId = studentId;
+    }
+
     public short getCourseId() {
         return courseId;
+    }
+
+    public void setCourseId(short courseId) {
+        this.courseId = courseId;
     }
 
     public byte getQuiz1() {

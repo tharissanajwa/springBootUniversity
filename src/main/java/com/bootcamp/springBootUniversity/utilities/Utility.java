@@ -15,7 +15,7 @@ public class Utility {
         return inputTrim;
     }
 
-    public short cekInput(String input) {
+    public byte inputCheck(String input) {
         byte valid = 0;
         if (input == null) {
             valid = 1;
@@ -26,5 +26,12 @@ public class Utility {
         }
         return valid;
     }
-    
+
+    public byte gradeCheck(byte grade) {
+        byte valid = 0;
+        if (grade < -1 || grade > 100) {
+            valid = 1;
+        }
+        return valid;
+    }
 }
