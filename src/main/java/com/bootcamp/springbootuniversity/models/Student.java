@@ -1,13 +1,14 @@
 package com.bootcamp.springbootuniversity.models;
 
+// Ini adalah kelas Student yang merepresentasikan data mahasiswa
 public class Student {
+    private long studentId; // Id mahasiswa
+    private String studentName; // Nama mahasiswa
+    private long majorId; // Id jurusan sebagai relasi dengan model jurusan
+    private String majorName; // Nama jurusan mahasiswa tersebut
+    private boolean studentStatus; // Status mahasiswa
 
-    private long studentId;
-    private String studentName;
-    private long majorId;
-    private String majorName;
-    private boolean studentStatus;
-
+    // Konstruktor untuk membuat objek mahasiswa
     public Student(long studentId, String studentName, long majorId, boolean studentStatus) {
         this.studentId = studentId;
         this.studentName = studentName;
@@ -15,6 +16,7 @@ public class Student {
         this.studentStatus = studentStatus;
     }
 
+    // Metode getter setter untuk field-field yg dibutuhkan
     public long getStudentId() {
         return studentId;
     }

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootUniversityApplication {
 
 	public static void main(String[] args) {
+		// Memulai aplikasi Spring Boot dengan konfigurasi dari kelas ini
 		SpringApplication.run(SpringBootUniversityApplication.class, args);
 	}
 

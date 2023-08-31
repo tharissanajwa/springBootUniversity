@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// Kelas ini bertindak sebagai controller untuk mengatur permintaan terkait mahasiswa memilih matkul
 @RestController
 @RequestMapping("/student-courses")
 public class StudentChooseCourseController {
 
     @Autowired
-    private StudentChooseCourseService studentCourseService;
+    private StudentChooseCourseService studentCourseService; // Layanan untuk mengambil data mahasiswa memilih matkul
 
+    // Metode untuk mengambil semua data mahasiswa memilih matkul dari fungsi yg telah dibuat di service
     @GetMapping("")
     private ResponseEntity<ApiResponse> getAllStudentCourse() {
         List<StudentChooseCourse> studentCourse = studentCourseService.getAllStudentCourse();
@@ -30,6 +32,7 @@ public class StudentChooseCourseController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    // Metode untuk membuat mahasiswa memilih matkul baru dari fungsi yg telah dibuat di service
     @PostMapping("")
     private ResponseEntity<ApiResponse> studentChooseCourse(@RequestBody StudentChooseCourse studentCourse) {
         StudentChooseCourse studentChooseCourse = studentCourseService.studentChooseCourses(studentCourseService.getStudentCourse(), studentCourse.getStudentId(), studentCourse.getCourseId());
@@ -41,9 +44,10 @@ public class StudentChooseCourseController {
         }
     }
 
-    @PutMapping("/{studentCourseId}/grade")
-    private ResponseEntity<ApiResponse> inputStudentGrades(@PathVariable("studentCourseId") int studentCourseId, @RequestBody StudentChooseCourse studentCourse) {
-        StudentChooseCourse studentChooseCourse = studentCourseService.inputStudentGrades(studentCourseId, studentCourse.getQuiz1(), studentCourse.getQuiz2(), studentCourse.getQuiz3(), studentCourse.getExam1(), studentCourse.getExam2());
+    // Metode untuk memperbarui informasi id mahasiswa dan matkul dari fungsi yg telah dibuat di service
+    @PutMapping("/{studentCourseId}")
+    private ResponseEntity<ApiResponse> updateStudentCourse(@PathVariable("studentCourseId") int studentCourseId, @RequestBody StudentChooseCourse studentCourse) {
+        StudentChooseCourse studentChooseCourse = studentCourseService.updateStudentCourse(studentCourseId, studentCourse.getStudentId(), studentCourse.getCourseId());
         ApiResponse response = new ApiResponse(studentCourseService.getResponseMessage(), studentChooseCourse);
         if (studentChooseCourse != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -52,9 +56,10 @@ public class StudentChooseCourseController {
         }
     }
 
-    @PutMapping("/{studentCourseId}")
-    private ResponseEntity<ApiResponse> updateStudentCourse(@PathVariable("studentCourseId") int studentCourseId, @RequestBody StudentChooseCourse studentCourse) {
-        StudentChooseCourse studentChooseCourse = studentCourseService.updateStudentCourse(studentCourseId, studentCourse.getStudentId(), studentCourse.getCourseId());
+    // Metode untuk memberikan nilai quiz/ujian dari fungsi yg telah dibuat di service
+    @PutMapping("/{studentCourseId}/grade")
+    private ResponseEntity<ApiResponse> inputStudentGrades(@PathVariable("studentCourseId") int studentCourseId, @RequestBody StudentChooseCourse studentCourse) {
+        StudentChooseCourse studentChooseCourse = studentCourseService.inputStudentGrades(studentCourseId, studentCourse.getQuiz1(), studentCourse.getQuiz2(), studentCourse.getQuiz3(), studentCourse.getExam1(), studentCourse.getExam2());
         ApiResponse response = new ApiResponse(studentCourseService.getResponseMessage(), studentChooseCourse);
         if (studentChooseCourse != null) {
             return ResponseEntity.status(HttpStatus.OK).body(response);

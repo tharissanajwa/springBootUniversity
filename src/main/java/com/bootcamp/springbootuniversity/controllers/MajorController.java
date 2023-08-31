@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// Kelas ini bertindak sebagai controller untuk mengatur permintaan terkait jurusan
 @RestController
 @RequestMapping("/majors")
 public class MajorController {
 
     @Autowired
-    private MajorService majorService;
+    private MajorService majorService; // Layanan untuk mengambil data jurusan
 
+    // Metode untuk mengambil semua data jurusan dari fungsi yg telah dibuat di service
     @GetMapping("")
     private ResponseEntity<ApiResponse> getAllMajors() {
         List<Major> major = majorService.getAllMajor();
@@ -30,6 +32,7 @@ public class MajorController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    // Metode untuk membuat jurusan baru dari fungsi yg telah dibuat di service
     @PostMapping("")
     private ResponseEntity<ApiResponse> createNewMajor(@RequestBody Major majors) {
         Major major = majorService.addMajor(majorService.getMajors(), majors.getNameMajor());
@@ -41,6 +44,7 @@ public class MajorController {
         }
     }
 
+    // Metode untuk memperbarui informasi jurusan dari fungsi yg telah dibuat di service
     @PutMapping("/{majorId}")
     private ResponseEntity<ApiResponse> updateMajor(@PathVariable("majorId") short majorId, @RequestBody Major majors) {
         Major major = majorService.updateMajor(majorId, majors.getNameMajor());

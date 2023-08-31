@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// Kelas ini bertindak sebagai controller untuk mengatur permintaan terkait mahasiswa
 @RestController
 @RequestMapping("/students")
 public class StudentController {
     
     @Autowired
-    private StudentService studentService;
+    private StudentService studentService; // Layanan untuk mengambil data mahasiswa
 
+    // Metode untuk mengambil semua data mahasiswa dari fungsi yg telah dibuat di service
     @GetMapping("")
     private ResponseEntity<ApiResponse> getAllStudent() {
         List<Student> students = studentService.getAllStudent();
@@ -31,6 +33,7 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    // Metode untuk membuat mahasiswa baru dari fungsi yg telah dibuat di service
     @PostMapping("")
     private ResponseEntity<ApiResponse> createNewStudent(@RequestBody Student student) {
         Student students = studentService.addStudent(studentService.getStudents(), student.getStudentName(), student.getMajorId());
@@ -42,6 +45,7 @@ public class StudentController {
         }
     }
 
+    // Metode untuk memperbarui informasi mahasiswa dari fungsi yg telah dibuat di service
     @PutMapping("/{studentId}")
     private ResponseEntity<ApiResponse> updateStudent(@PathVariable("studentId") int studentId, @RequestBody Student student) {
         Student students = studentService.updateStudent(studentId, student.getStudentName(), student.getMajorId());
@@ -53,6 +57,7 @@ public class StudentController {
         }
     }
 
+    // Metode untuk menghapus mahasiswa berdasarkan id dari fungsi yg telah dibuat di service
     @DeleteMapping("/{studentId}")
     private ResponseEntity<ApiResponse> disableStudent(@PathVariable("studentId") int studentId) {
         boolean students = studentService.disableStudent(studentId);

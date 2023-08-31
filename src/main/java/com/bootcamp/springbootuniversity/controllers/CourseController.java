@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// Kelas ini bertindak sebagai controller untuk mengatur permintaan terkait matkul
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
 
     @Autowired
-    private CourseService courseService;
+    private CourseService courseService; // Layanan untuk mengambil data matkul
 
+    // Metode untuk mengambil semua data matkul dari fungsi yg telah dibuat di service
     @GetMapping("")
     private ResponseEntity<ApiResponse> getAllCourse() {
         List<Course> courses = courseService.getAllCourse();
@@ -31,6 +33,7 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    // Metode untuk membuat matkul baru dari fungsi yg telah dibuat di service
     @PostMapping
     private ResponseEntity<ApiResponse> createNewCourse(@RequestBody Course course) {
         Course courses = courseService.addCourse(courseService.getCourses(), course.getCourseName());
@@ -42,6 +45,7 @@ public class CourseController {
         }
     }
 
+    // Metode untuk memperbarui informasi matkul dari fungsi yg telah dibuat di service
     @PutMapping("/{courseId}")
     private ResponseEntity<ApiResponse> updateCourse(@PathVariable("courseId") short courseId, @RequestBody Course course) {
         Course courses = courseService.updateCourse(courseId, course.getCourseName());
@@ -53,6 +57,7 @@ public class CourseController {
         }
     }
 
+    // Metode untuk menghapus matkul berdasarkan id dari fungsi yg telah dibuat di service
     @DeleteMapping("/{courseId}")
     private ResponseEntity<ApiResponse> disableCourse(@PathVariable("courseId") short courseId) {
         boolean courses = courseService.disableCourse(courseId);

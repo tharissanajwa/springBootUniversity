@@ -1,21 +1,25 @@
 package com.bootcamp.springbootuniversity.models;
 
 public class StudentChooseCourse {
-    private long studentCourseId;
-    private long studentId;
-    private long courseId;
+    private long studentCourseId; // Id mahasiswa ketika memilih matkul
+    private long studentId; // Id mahasiswa sebagai relasi dengan model mahasiswa
+    private long courseId; // Id matkul sebagai relasi dengan model matkul
+
+    // Nilai - nilai quiz dan ujian(di set sebagai null, karena nilai nya masih kosong)
     private Integer quiz1 = null;
     private Integer quiz2 = null;
     private Integer quiz3 = null;
     private Integer exam1 = null;
     private Integer exam2 = null;
 
+    // Konstruktor untuk membuat objek mahasiswa memlih matkul
     public StudentChooseCourse(long studentCourseId, long studentId, long courseId) {
         this.studentCourseId = studentCourseId;
         this.studentId = studentId;
         this.courseId = courseId;
     }
 
+    // Metode getter setter untuk field-field yg dibutuhkan
     public long getStudentCourseId() {
         return studentCourseId;
     }
